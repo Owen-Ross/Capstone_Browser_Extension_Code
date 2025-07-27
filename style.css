@@ -1,0 +1,95 @@
+.phishing-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.phishing-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.phishing-score {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #d9534f;
+}
+
+.phishing-close {
+  margin-top: 12px;
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.phishing-close:hover {
+  background-color: #d32f2f;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.phishing-score-container {
+  position: relative;
+  width: 120px;
+  height: 60px;
+  margin: 15px auto;
+}
+
+svg.progress-ring {
+  width: 100%;
+  height: 100%;
+  transform: rotate(0deg);
+}
+
+svg path.bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 10;
+}
+
+svg path.progress {
+  fill: none;
+  stroke: red;
+  stroke-width: 10;
+  stroke-dasharray: 141.37;
+  stroke-dashoffset: 141.37;
+  transition: stroke-dashoffset 1s ease, stroke 0.5s ease;
+}
+
+.score-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-30%);
+  font-weight: bold;
+  font-size: 16px;
+  color: red;
+}

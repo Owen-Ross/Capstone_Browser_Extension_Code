@@ -1,0 +1,49 @@
+{
+  "name": "Automated Phishing Detection",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "tabs",
+    "identity"
+  ],
+  "host_permissions": [
+    "https://mail.google.com/*",
+    "https://phishing-api-proxy-578705582953.us-central1.run.app/*"
+  ],
+  "action": {
+    "default_title": "Toggle Phishing Detection"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "oauth2": {
+    "client_id": "578705582953-47cce0qkhms1e2k4ur3u69ul9gno4m0p.apps.googleusercontent.com",
+    "scopes": [
+      "email",
+      "openid"
+    ]
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "style.css"
+      ],
+      "matches": [
+        "https://mail.google.com/*"
+      ]
+    }
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mail.google.com/*"
+      ],
+      "js": [
+        "contentScript.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
