@@ -58,8 +58,8 @@
 .phishing-score-container {
   position: relative;
   width: 120px;
-  height: 60px;
-  margin: 15px auto;
+  height: 80px;
+  margin: 15px auto 25px auto;
 }
 
 svg.progress-ring {
@@ -86,10 +86,45 @@ svg path.progress {
 .score-text {
   position: absolute;
   width: 100%;
+  bottom: 0;
   text-align: center;
-  top: 50%;
-  transform: translateY(-30%);
   font-weight: bold;
   font-size: 16px;
   color: red;
+}
+
+details {
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.show-full-body {
+  margin-top: 6px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.show-full-body:hover {
+  background-color: #1565c0;
+}
+
+.body-scroll {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 4px;
+  margin-top: 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 6px;
+  background: #fafafa;
 }

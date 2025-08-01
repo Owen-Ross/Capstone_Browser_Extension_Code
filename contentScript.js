@@ -79,51 +79,74 @@ if (window.phishingScriptInjected) {
     // Adding the UI panel to the current emsil
     const container = document.createElement("div");
     container.id = "phishing-ui";
+
     // Creating the HTML that will be used to display the email content and phishing probability
     container.innerHTML = container.innerHTML = `
-  <div class="phishing-popup" id="phishing-ui">
-    <div class="phishing-header">Email Analysis</div>
+        <div class="phishing-popup" id="phishing-ui">
+          <div class="phishing-header">Email Analysis</div>
 
-    <div class="phishing-score-container">
+          <div class="phishing-score-container">
 
-        <svg viewBox="0 0 100 50" class="progress-ring">
-          <path class="bg" d="M 5 50 A 45 45 0 0 1 95 50" />
-          <path class="progress" d="M 5 50 A 45 45 0 0 1 95 50" />
-        </svg>
+              <svg viewBox="0 0 100 50" class="progress-ring">
+                <path class="bg" d="M 5 50 A 45 45 0 0 1 95 50" />
+                <path class="progress" d="M 5 50 A 45 45 0 0 1 95 50" />
+              </svg>
 
-      </svg>
-      <div class="score-text">--%</div>
-    </div>
+            </svg>
+            <div class="score-text">--%</div>
+          </div>
 
-    <details>
-      <summary><strong>Subject</strong></summary>
-      <div>${sanitize(subject)}</div>
-    </details>
+          <details>
+            <summary><strong>Subject</strong></summary>
+            <div>${sanitize(subject)}</div>
+          </details>
 
-    <details>
-      <summary><strong>From</strong></summary>
-      <div>${sanitize(sender)} &lt;${sanitize(senderEmail)}&gt;</div>
-    </details>
+          <details>
+            <summary><strong>From</strong></summary>
+            <div>${sanitize(sender)} &lt;${sanitize(senderEmail)}&gt;</div>
+          </details>
 
-    <details>
-      <summary><strong>Date</strong></summary>
-      <div>${sanitize(dateTime)}</div>
-    </details>
+          <details>
+            <summary><strong>Date</strong></summary>
+            <div>${sanitize(dateTime)}</div>
+          </details>
 
-    <details>
-      <summary><strong>Body Preview</strong></summary>
-      <div>${sanitize(body.substring(0, 200))}...</div>
-    </details>
+          <details>
+            <summary><strong>Body Preview</strong></summary>
+            <div class="body-scroll">
+              <div id="body-preview"></div>
+              <button class="show-full-body">Show Full Email</button>
+              <div id="full-body" style="display:none;"></div>
+            </div>
+          </details>
 
-    <button class="phishing-close">Close</button>
-  </div>
-`;
+          <button class="phishing-close">Close</button>
+        </div>
+      `;
 
     // Adding the styling class "phishing-popup" to the UI panel
     container.classList.add("phishing-popup");
 
     // Adding the UI panel to the webpage
     document.body.appendChild(container);
+
+    const bodyPreviewDiv = container.querySelector("#body-preview");
+    if (bodyPreviewDiv) {
+      const snippet = body.length > 200 ? body.slice(0, 200) + "..." : body;
+      bodyPreviewDiv.innerHTML = sanitize(snippet);
+    }
+
+    const fullBodyDiv = container.querySelector("#full-body");
+    if (fullBodyDiv) {
+      fullBodyDiv.innerHTML = sanitize(body);
+    }
+
+
+    const showFullBtn = container.querySelector(".show-full-body");
+    showFullBtn.addEventListener("click", () => {
+      fullBodyDiv.style.display = "block";
+      showFullBtn.style.display = "none";
+    });
 
     // Closing the UI panel when the user clicks the close button
     container.querySelector(".phishing-close").onclick = () => container.remove();
