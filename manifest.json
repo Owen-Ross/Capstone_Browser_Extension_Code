@@ -13,18 +13,19 @@
     "https://mail.google.com/*",
     "https://phishing-api-proxy-578705582953.us-central1.run.app/*"
   ],
+  "oauth2": {
+  "client_id": "418159128420-ok3j47pnhpghbics0n6mpnnmphagdrkb.apps.googleusercontent.com",
+    "scopes": [
+      "email",
+      "profile",
+      "openid"
+    ]
+  },
   "action": {
     "default_title": "Toggle Phishing Detection"
   },
   "background": {
     "service_worker": "background.js"
-  },
-  "oauth2": {
-    "client_id": "578705582953-47cce0qkhms1e2k4ur3u69ul9gno4m0p.apps.googleusercontent.com",
-    "scopes": [
-      "email",
-      "openid"
-    ]
   },
   "web_accessible_resources": [
     {
