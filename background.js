@@ -1,3 +1,17 @@
+/**
+ * Created by: Owen Ross <rossow@sheridancollege.ca>
+ * Created on: July 25, 2025
+ * 
+ * Last modified by: Owen Ross <rossow@sheridancollege.ca>
+ * Last modified on: August 7, 2025
+ * 
+ * Purpose:
+ * Acts as the controller and middleman:
+ *    - Toggles the extension ON/OFF
+ *    - Injects scripts and styles into Gmail
+ *    - Handles phishing score API communication
+ */
+
 // Listening for the user to click the browser extension to turn it on
 chrome.action.onClicked.addListener(async (tab) => {
   const url = tab.url || "";

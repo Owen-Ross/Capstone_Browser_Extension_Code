@@ -1,3 +1,15 @@
+/**
+ * Created by: Owen Ross <rossow@sheridancollege.ca>
+ * Created on: July 25, 2025
+ * 
+ * Last modified by: Owen Ross <rossow@sheridancollege.ca>
+ * Last modified on: August 7, 2025
+ * 
+ * Purpose:
+ * Injects script into Gmail tabs when the extension is turned on. It observes the DOM for email content changes, 
+ * extracts the email data, displays a UI panel, and fetches phishing prediction scores from a backend NLP model.
+ */
+
 // Checking if the script has aready been injected into the current tab
 if (window.phishingScriptInjected) {
   console.warn("Phishing script already injected. Skipping...");
@@ -29,8 +41,10 @@ if (window.phishingScriptInjected) {
 
     // Creating a new observer object if there is not one already
     observer = new MutationObserver(() => {
+      // If a mutation observer has already been created, then don't create a new one
       if (!enabled) return;
 
+      // Checks if there was already a setTimeout object created, if there is, then clear the old one
       if (debounceTimeout) clearTimeout(debounceTimeout);
 
       debounceTimeout = setTimeout(() => {
@@ -130,18 +144,20 @@ if (window.phishingScriptInjected) {
     // Adding the UI panel to the webpage
     document.body.appendChild(container);
 
+    // Adding the body preview to the UI dropdown
     const bodyPreviewDiv = container.querySelector("#body-preview");
     if (bodyPreviewDiv) {
       const snippet = body.length > 200 ? body.slice(0, 200) + "..." : body;
       bodyPreviewDiv.innerHTML = sanitize(snippet);
     }
 
+    // Adding the full email body text to the UI dropdown
     const fullBodyDiv = container.querySelector("#full-body");
     if (fullBodyDiv) {
       fullBodyDiv.innerHTML = sanitize(body);
     }
 
-
+    // Adding the show full body button to the email body dropdown 
     const showFullBtn = container.querySelector(".show-full-body");
     showFullBtn.addEventListener("click", () => {
       fullBodyDiv.style.display = "block";
@@ -158,6 +174,7 @@ if (window.phishingScriptInjected) {
   // This function will make a request passing the email content to the 
   async function fetchPhishingScore(text) {
     const scoreElement = document.querySelector(".score-text");
+    // Displaying a loading spinner, while waiting for the model to return the prediciton score
     if (scoreElement) {
       scoreElement.innerHTML = `<span class="loading-spinner"></span> Loading...`;
     }
